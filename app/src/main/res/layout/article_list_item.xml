@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/section_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:foregroundGravity="left"
+            android:gravity="left"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorNewsLocation"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/textColorNewsLocation"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/author_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:foregroundGravity="right"
+            android:gravity="right"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorNewsLocation"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorNewsDetails"
+            android:textSize="12sp"
+            tools:text="Mar 6, 2010" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorNewsDetails"
+            android:textSize="12sp"
+            tools:text="3:00 PM" />
+
+    </LinearLayout>
+</LinearLayout>
