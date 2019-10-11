@@ -1,33 +1,17 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.example.android.NewsApp;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * An {@link NewsAdapter} knows how to create a list item layout for each earthquake
@@ -42,7 +26,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
      * The part of the location string from the USGS service that we use to determine
      * whether or not there is a location offset present ("5km N of Cairo, Egypt").
      */
-    private static final String LOCATION_SEPARATOR = " of ";
+    String timeView;
+    String dateView;
+    private static final String TIME_SEPARATOR = " of ";
 
     /**
      * Constructs a new {@link NewsAdapter}.
@@ -77,24 +63,28 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView section = (TextView) listItemView.findViewById(R.id.section_text);
         section.setText(currentNews.getmSection());
 
+        TextView author = (TextView) listItemView.findViewById(R.id.author_text);
+        author.setText(currentNews.getmAuthor());
 
         // Create a new Date object from the time in milliseconds of the earthquake
-        Date dateObject = new Date(currentNews.getmTime());
+        String originalTime = currentNews.getmTime();
 
-        // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
-        // Format the date string (i.e. "Mar 3, 1984")
-        String formattedDate = formatDate(dateObject);
-        // Display the date of the current earthquake in that TextView
-        dateView.setText(formattedDate);
+        TextView time_View = (TextView) listItemView.findViewById(R.id.date);
+        String formattedDate = formatDate(originalTime);
+        time_View.setText(formattedDate);
 
-        // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
-        // Format the time string (i.e. "4:30PM")
-        String formattedTime = formatTime(dateObject);
-        // Display the time of the current earthquake in that TextView
-        timeView.setText(formattedTime);
+        TextView date_View = (TextView) listItemView.findViewById(R.id.time);
+        String formattedTime = formatTime(originalTime);
+        date_View.setText(formattedTime);
 
+        if (originalTime.contains(TIME_SEPARATOR)) {
+            String[] parts = originalTime.split(TIME_SEPARATOR);
+            this.timeView = parts[0] + TIME_SEPARATOR;
+            this.dateView = parts[1];
+        } else {
+            this.timeView = getContext().getString(R.string.time);
+            this.dateView = originalTime;
+        }
         // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
@@ -103,16 +93,16 @@ public class NewsAdapter extends ArrayAdapter<News> {
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
-    private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
-        return dateFormat.format(dateObject);
+    private String formatDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(date);
     }
 
     /**
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
-    private String formatTime(Date dateObject) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
-        return timeFormat.format(dateObject);
+    private String formatTime(String time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(time);
     }
 }
